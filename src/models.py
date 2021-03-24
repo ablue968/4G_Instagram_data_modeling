@@ -28,6 +28,7 @@ class Posts(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     text = Column(String(4000), nullable=False)
     image = Column(String(255), nullable=False)
+    users = relationship(Users)
 
 
 class Comments(Base):
@@ -38,6 +39,8 @@ class Comments(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     post_id = Column(Integer, ForeignKey('posts.id'))
     text = Column(String(4000), nullable=False)
+    users = relationship(Users)
+    posts = relationship(Posts)
     
 
 class Followers(Base):
@@ -47,6 +50,7 @@ class Followers(Base):
     id = Column(Integer, primary_key=True)
     user_id_from = Column(Integer, ForeignKey('users.id'))
     user_id_to = Column(Integer, ForeignKey('users.id'))
+    users = relationship(Users)
 
 
 class Likes(Base):
@@ -56,6 +60,9 @@ class Likes(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     post_id = Column(Integer, ForeignKey('posts.id'))
+    users = relationship(Users)
+    posts = relationship(Posts)
+
     
 
     def to_dict(self):
